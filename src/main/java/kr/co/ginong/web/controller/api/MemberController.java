@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -251,6 +252,23 @@ public class MemberController {
             Long locationId
     ){
         Integer state = locationService.removeLocationById(locationId);
+
+        if(state<0)
+            return ResponseEntity.badRequest().body(false);
+
+        return ResponseEntity.ok(true);
+
+    }
+
+    //기본배송지 변경
+    @GetMapping("location/updateState")
+    public ResponseEntity<Boolean>  updateState(
+            Long locationId
+            ,@AuthenticationPrincipal WebUserDetails userDetails
+    ){
+        Long memberId = userDetails.getId();
+
+        Integer state = locationService.updateStateById(locationId, memberId);
 
         if(state<0)
             return ResponseEntity.badRequest().body(false);

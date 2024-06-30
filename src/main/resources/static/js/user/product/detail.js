@@ -371,7 +371,6 @@ window.addEventListener("load", function(){
     let navi = this.document.querySelector(".navi");
 
     //popup close
-
     let orderInfo = this.document.querySelector("#order-info");
     let close = orderInfo.getElementsByClassName("close")[0];
 
@@ -393,16 +392,13 @@ window.addEventListener("load", function(){
 
         switch (state) {
             case 'cart' :
-
+                cartBYCookie();
                 break;
-
             case 'order' :
                 let url = new URL ("/order/info", location.origin);
-
                 let quantity = parseInt(quantityInput.value);
 
                 url = url + "?p=" + productId + "&q=" + quantity;
-
                 location.href = url.toString();
 
                 break;

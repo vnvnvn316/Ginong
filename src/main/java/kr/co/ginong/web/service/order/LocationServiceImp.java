@@ -5,6 +5,7 @@ import kr.co.ginong.web.entity.order.LocationHistory;
 import kr.co.ginong.web.repository.order.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -54,6 +55,21 @@ public class LocationServiceImp implements LocationService{
     public Integer addLocation(Location location) {
         int state =  repository.insertLocation(location);
         return state;
+    }
+
+    @Transactional
+    @Override
+    public Integer updateStateById(Long locationId , Long memberId) {
+        try{
+            repository.updateStateAll(memberId);
+            repository.updateStateById(locationId , memberId);
+
+            return 1;
+        }
+        catch (Exception e) {
+            return -1;
+        }
+
     }
 
 

@@ -2,6 +2,7 @@ package kr.co.ginong.web.service.order;
 
 import kr.co.ginong.web.entity.order.Location;
 import kr.co.ginong.web.entity.order.LocationHistory;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface LocationService {
     Integer removeLocationById(Long locationId);
 
     Integer addLocation(Location location);
+
+    Integer updateStateById(Long locationId, Long memberId);
 }

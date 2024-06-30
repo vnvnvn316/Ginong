@@ -72,4 +72,12 @@
 		VALUES(#{zipCode},#{addr1},#{addr2},#{receiverName},#{receiverPhone},#{state},#{label},#{note},#{gatePwd},#{memberId})
 	</insert>
 
+	<update id="updateStateById" parameterType="Long">
+		update LOCATION set state=1 where id=#{locationId} and member_id=#{memberId};
+	</update>
+
+	<update id="updateStateAll">
+		update LOCATION set state=0 where member_id=#{memberId};
+	</update>
+
 </mapper>

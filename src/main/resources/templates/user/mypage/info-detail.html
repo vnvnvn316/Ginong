@@ -158,7 +158,7 @@
                         <button class="n-btn n-btn:outline w:3 color:main-6 h:3" @click.prevent="updateLocation(item.id)">수정</button>
                         <button class="n-btn n-btn:outline w:3 color:main-6 h:3" @click.prevent="confirmDelete(item.id)">삭제</button>
                     </div>
-                    <button class="n-btn w:4 h:3">기본 배송지로 변경</button>
+                    <button class="n-btn w:4 h:3" @click.prevent="updateState(item.id)">기본 배송지로 변경</button>
                 </div>
             </div>
         </section>
