@@ -113,24 +113,8 @@ createApp({
                 console.error("Failed to fetch data:", error);
             }
         }
-        ,async updateLocationList(){ //기본배송지 변경
-
-            //기본 배송지 목록
-            const defaultIctResponsePromise = fetch("/api/member/location/defaultList");
-            //그외 배송지 목록
-            const lctResponsePromise = fetch("/api/member/location/list");
-
-            // 모든 응답이 완료될 때까지 기다림
-            const [defaultIctResponse, lctResponse] = await Promise.all([
-                defaultIctResponsePromise,
-                lctResponsePromise
-            ]);
-
-            const defaultIctListData = await defaultIctResponse.json();
-
-            if (defaultIctListData.ok)
-                this.data.defaultIctList = defaultIctListData.location;
-
+        ,updateLocationList(){ //기본배송지 변경
+            this.loadLocationlist();
         }
         , async updateState(id) {
             const url = `/api/member/location/updateState?locationId=${id}`;
