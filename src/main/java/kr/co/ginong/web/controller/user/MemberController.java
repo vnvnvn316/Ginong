@@ -6,6 +6,7 @@ import kr.co.ginong.web.config.security.WebUserDetails;
 import kr.co.ginong.web.entity.member.Member;
 import kr.co.ginong.web.entity.order.Location;
 import kr.co.ginong.web.entity.order.Order;
+import kr.co.ginong.web.entity.product.ProductImg;
 import kr.co.ginong.web.service.coupon.CouponService;
 import kr.co.ginong.web.service.inquiry.InquiryService;
 import kr.co.ginong.web.service.member.MemberService;
@@ -266,9 +267,9 @@ public class MemberController {
     @GetMapping("mypage/location-uptform")
     public String updateLocation(
             Model model
-           // ,@AuthenticationPrincipal WebUserDetails userDetails
             ,@RequestParam(name="locationId") Long locationId
     ){
+
         //TO-DO
         //locationId를 param값으로 보내는 대신 아이디와 대조하여 URL 파라미터 조작 방지 해야함
         //locationId값과 user id를 함께 보내서 검증해야 함
@@ -280,6 +281,31 @@ public class MemberController {
         model.addAttribute("pageName", pageName);
 
         return "user/mypage/location-uptform";
+    }
+
+    @PostMapping("mypage/location-uptform")
+    public String updateLocation(
+            @AuthenticationPrincipal WebUserDetails userDetails
+            ,@RequestParam(name="locationId") Long locationId
+            ,Location location
+    ){
+        //TO-DO
+        //URL 파라미터 조작 피해서 해야 함
+
+        long memberId = userDetails.getId();
+        location.setId(locationId);
+        location.setMemberId(memberId);
+
+//        try {
+            locationService.updateLocation(location);
+//        }
+//        catch (Exception e){
+//            return "error/500";
+//        }
+        System.out.println("ddd");
+
+        return "redirect:/mypage/info-detail?t=location";
+
     }
 
     //배송지 정보 데이터베이스에 저장

@@ -17,7 +17,7 @@
 <main layout:fragment="main" class="d:flex fl-dir:column gap:8 md:gap:13 max-w:9 w:10p pr:4 pl:4 md:pr:0 md:pl:0">
   <section id="location">
       <h1 class="d:none">배송지 수정</h1>
-      <form method="post" action="" class="d:flex fl-dir:column gap:10">
+      <form method="post" class="d:flex fl-dir:column gap:10">
           <div>
               <div>배송지명</div>
               <input th:value="${locationInf.label}" type="text" class="n-textbox n-textbox-type:underline" autocomplete="false" name="label"/>
@@ -95,6 +95,7 @@
           </div>
           <div>
               <button class="n-btn w:100p">수정</button>
+              <input type="hidden" name="locationId" value="${locationInf.id}" />
           </div>
       </form>
   </section>

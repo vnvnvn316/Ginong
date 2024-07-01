@@ -20,4 +20,6 @@ public interface LocationService {
     Integer addLocation(Location location);
 
     Integer updateStateById(Long locationId, Long memberId);
+
+    void updateLocation(Location location);
 }

@@ -73,11 +73,27 @@
 	</insert>
 
 	<update id="updateStateById" parameterType="Long">
-		update LOCATION set state=1 where id=#{locationId} and member_id=#{memberId};
+		update LOCATION set state=1 where id=#{locationId} and member_id=#{memberId}
 	</update>
 
 	<update id="updateStateAll">
-		update LOCATION set state=0 where member_id=#{memberId};
+		update LOCATION set state=0 where member_id=#{memberId}
+	</update>
+
+	<update id="updateLocation" parameterType="Location">
+		update LOCATION
+		<set>
+			<if test="zipCode != null">ZIP_CODE=${zipCode},</if>
+			<if test="addr1 != null">ADDR1=#{addr1},</if>
+			<if test="addr2 != null">ADDR2=#{addr2},</if>
+			<if test="receiverName != null">RECEIVER_NAME=#{receiverName},</if>
+			<if test="receiverPhone != null">RECEIVER_PHONE=#{receiverPhone},</if>
+			<if test="state != null">STATE=#{state},</if>
+			<if test="label != null">LABEL=#{label},</if>
+			<if test="note != null">NOTE=#{note},</if>
+			<if test="gatePwd != null">GATE_PWD=#{gatePwd},</if>
+		</set>
+		where member_id=#{memberId} and id = #{id}
 	</update>
 
 </mapper>

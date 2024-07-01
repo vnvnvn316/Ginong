@@ -35,4 +35,6 @@ public interface LocationRepository {
     int updateStateById(Long locationId, Long memberId);
 
     void updateStateAll(Long memberId);
+
+    int updateLocation(Location location);
 }
