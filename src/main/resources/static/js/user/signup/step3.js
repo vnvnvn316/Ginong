@@ -82,46 +82,36 @@ window.addEventListener("load", function(e){
 
     }
 
-    //DB에서 아이디 있는지 확인
-   async function checkUserName(userNameValue){
+    function checkUserName(userNameValue) {
+        let ableDiv = document.getElementsByClassName("check-id")[0];
+        let disableDiv = document.getElementsByClassName("check-id")[1];
 
-        //아이디 사용가능
-       let  usableDiv= document.getElementsByClassName("check-id")[0];
-       //아이디 사용중
-       let  disableDiv= document.getElementsByClassName("check-id")[1];
-
-        if(userNameValue!=="") {
-
-            let url=`/api/member/checkUserName`;
-                url = `${url}?userName=${userNameValue}`;
-
-            let method = "get";
-
-            let xhr = new XMLHttpRequest();
-
-            xhr.onload = function (){
-
-                if(xhr.status===200){ //아이디 있으니 사용불가
-                    disableDiv.classList.remove("d:none");
-                    usableDiv.classList.add("d:none");
-                    sessionStorage.setItem('nameYn','Y');
-                }else { //DB에 아이디 없으니 사용가능
-                    usableDiv.classList.remove("d:none");
-                    disableDiv.classList.add("d:none");
-                    sessionStorage.setItem('nameYn','N');
-                }
-
-            };
-
-             xhr.open(method, url);
-             xhr.setRequestHeader('Content-Type', 'text/plain');
-             xhr.send();
-
-        }else {
-            usableDiv.classList.add("d:none");
+        // 입력값 공백 시 검증 X
+        if (userNameValue === "") {
+            ableDiv.classList.add("d:none");
             disableDiv.classList.add("d:none");
+            return;
         }
 
+        let url = `/api/member/checkUserName?userName=${userNameValue}`;
+
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    // DB에 아이디가 있는 경우 (사용불가)
+                    disableDiv.classList.remove("d:none"); // 사용중 표출
+                    ableDiv.classList.add("d:none");
+                    return;
+                }
+                // DB에 아이디가 없는 경우 (사용가능)
+                ableDiv.classList.remove("d:none"); // 사용가능 표출
+                disableDiv.classList.add("d:none");
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // 에러 발생 시 에러 페이지로 리디렉션
+                window.location.href = '/template/error/500.html';
+            });
     }
 
 });
@@ -434,6 +424,8 @@ window.addEventListener("load", function(e){
 
 
 });
+
+
 class Cookie{
 
     constructor() {
