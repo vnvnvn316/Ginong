@@ -301,7 +301,6 @@ public class MemberController {
 
         //수정전과 다르다면 기본배송지 update
         if(beforeState!=location.isState()){
-            System.out.println("다르다!");
             //기본배송지 변경
             locationService.updateStateById(locationId,memberId);
         }

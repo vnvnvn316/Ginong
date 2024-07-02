@@ -79,8 +79,8 @@ public class LocationServiceImp implements LocationService{
 
     @Override
     public boolean getStateByID(Long locationId) {
-        boolean status = repository.findStateById(locationId);
-        return status;
+        boolean state = repository.findStateById(locationId);
+        return state;
     }
 
 
