@@ -96,4 +96,8 @@
 		where member_id=#{memberId} and id = #{id}
 	</update>
 
+	<select id="findStateById" parameterType="Long" resultType="boolean">
+		select STATE from LOCATION where ID = #{locationId}
+	</select>
+
 </mapper>

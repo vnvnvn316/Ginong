@@ -11,6 +11,7 @@
     <script type="module" src="/js/user/mypage/location-reg.js" defer></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/module/findLocation.js"></script>
+    <script src="/js/user/mypage/location-update.js" defer></script>
     <link rel="stylesheet" href="/css/user/mypage/index.css">
 </head>
 <body>
@@ -39,19 +40,16 @@
               <input th:value="${locationInf.addr1}" type="text" id="sample6_address" class="n-textbox n-textbox-type:underline"  placeholder="주소"  name="addr1">
               <input th:value="${locationInf.addr2}" type="text" id="sample6_detailAddress" class="n-textbox n-textbox-type:underline" placeholder="상세주소" name="addr2">
 <!--              <input type="text" id="sample6_extraAddress" class="n-textbox n-textbox-type:underline" placeholder="참고항목">-->
-              <div class="d:flex ai:center">
-                  <label th:if="${locationInf.state}">
-                      <span class="icon-check icon icon:checkCircle icon-color:main-6 icon-size:4 csr:pointer"></span>
-                      <input class="d:none check-default" type="checkbox" name="state">
+              <div class="state-div d:flex ai:center">
+                  <label>
+                      <span
+                              th:onclick="'changeState(' +${locationInf.state}+')'"
+                              th:class="'icon-check icon icon:checkCircle csr:pointer icon-size:4 '
+                                        +(${locationInf.state} == true ? 'icon-color:main-6' : 'icon-color:base-6')">
+                      </span>
+                      <input class="state-input d:none check-default" type="checkbox" name="state" th:value="${locationInf.state}">
                       기본 배송지로 등록할게요
                   </label>
-                  <label th:unless="${locationInf.state}">
-                      <span class="icon-check icon icon:checkCircle icon-color:base-6 icon-size:4 csr:pointer"></span>
-                      <input class="d:none check-default" type="checkbox" name="state">
-                      기본 배송지로 등록할게요
-                  </label>
-<!--                  <span class="icon icon:checkCircle icon-color:base-6 icon-size:4 csr:pointer">체크 아이콘</span>-->
-
               </div>
           </div>
           <div id="category" class="d:flex fl-dir:column gap:4">
@@ -77,18 +75,20 @@
               <div>공동현관 출입번호</div>
               <label>
                   <input type="radio"
-                         th:checked="${locationInf.gatePwd}"
-                         class="n-toggle n-toggle-type:dot n-toggle-size:2" name="gatePwd"/>
+                         th:checked="${locationInf.gatePwd!=null}"
+                         class="n-toggle n-toggle-type:dot n-toggle-size:2" name="gate-pwd-label"/>
                   <input th:value="${locationInf.gatePwd}"
                          type="text"
                          class="n-textbox n-textbox-type:underline pl:0"
-                         placeholder="공동현관 출입번호를 입력해 주세요">
+                         placeholder="공동현관 출입번호를 입력해 주세요"
+                         name="gatePwd"
+                        >
               </label>
               <label>
                   <input type="radio"
                          th:checked="${locationInf.gatePwd==null}"
                          class="n-toggle n-toggle-type:dot n-toggle-size:2"
-                         name="gatePwd"
+                         name="gate-pwd-label"
                          value="isNull"/>
                   비밀번호 없이 출입 가능해요
               </label>

@@ -22,4 +22,6 @@ public interface LocationService {
     Integer updateStateById(Long locationId, Long memberId);
 
     void updateLocation(Location location);
+
+    boolean getStateByID(Long locationId);
 }

@@ -16,7 +16,7 @@ public class Location {
     private String   addr2;
     private String   receiverName;
     private String   receiverPhone;
-    private boolean   state;
+    private boolean  state;
     private String   label;
     private String   note;
     private String   gatePwd;
