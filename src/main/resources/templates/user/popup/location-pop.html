@@ -22,15 +22,22 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td></td>
-        <td>내이름</td>
-        <td>경기도 어쩌구 112 -5</td>
-        <td>01099998888</td>
-        <td><button class="n-btn n-btn-type:outline">선택</button></td>
+      <tr th:each="list:${locationList}">
+        <td>
+          <div
+                  th:class="${list.state ? 'deco icon:check icon-color:accent-1' : '' }"
+          ></div>
+        </td>
+        <td th:text="${list.receiverName}">받는사람</td>
+        <td th:text="${list.addr1 + list.addr2}">주소</td>
+        <td th:text="${list.receiverPhone}">01099998888</td>
+        <td th:class="${list.state ? 'd:none' : '' }">
+          <button class="n-btn n-btn-type:outline">
+            선택</button>
+        </td>
       </tr>
-      <tr>
-        <td><div class="deco icon:check deco-size:4 icon-size:4 icon-color:accent-1"></div></td>
+      <!--<tr>
+        <td></td>
         <td>진민경</td>
         <td>서울특별시 어쩌구 112 -5</td>
         <td>01077733876</td>
@@ -42,7 +49,7 @@
         <td>경기도 어쩌구 112 -5</td>
         <td>01099998888</td>
         <td><button class="n-btn n-btn-type:outline">선택</button></td>
-      </tr>
+      </tr>-->
       </tbody>
     </table>
   </form>

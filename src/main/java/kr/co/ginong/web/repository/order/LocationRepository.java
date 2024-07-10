@@ -10,7 +10,7 @@ import kr.co.ginong.web.entity.order.LocationHistory;
 
 @Mapper
 public interface LocationRepository {
-    List<Location> findAll();
+    List<Location> findAll(Long memberId);
 
     Location findById(Long id);
 

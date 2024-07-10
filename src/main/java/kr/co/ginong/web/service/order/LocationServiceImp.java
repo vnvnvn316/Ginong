@@ -83,5 +83,11 @@ public class LocationServiceImp implements LocationService{
         return state;
     }
 
+    @Override
+    public List<Location> getListAllByMemberID(Long memberId) {
+        List<Location> list = repository.findAll(memberId);
+        return list;
+    }
+
 
 }

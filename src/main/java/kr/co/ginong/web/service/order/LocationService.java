@@ -9,6 +9,7 @@ import java.util.List;
 public interface LocationService {
     Location getByMemberID(Long memberId);
 
+    /* 기본 배송지 외 배송지 목록 */
     List<Location> getListByMemberID(Long memberId);
 
     Location getByID(Long id);
@@ -24,4 +25,8 @@ public interface LocationService {
     void updateLocation(Location location);
 
     boolean getStateByID(Long locationId);
+
+    List<Location> getListAllByMemberID(Long memberId);
+
+
 }
