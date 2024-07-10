@@ -3,6 +3,45 @@
 <head>
   <title>기농이네 - 순수한 땅, 순수한 먹거리</title>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
+  <script>
+      // 부모 창에서 메시지를 받을 때 실행되는 이벤트 핸들러
+      window.addEventListener("message", function(event) {
+          const selectedId = event.data; // 부모 창에서 전송된 데이터
+
+          // SSR 방식으로 렌더링된 데이터와 비교
+          document.querySelectorAll('tr[data-id]').forEach(row => {
+              const listId = row.getAttribute('data-id');
+              if (listId === selectedId) {
+                  const check = row.querySelector('.check-selected');
+                  const btn = row.querySelector('.n-btn');
+
+                  check.innerHTML= "<div class='deco icon:check icon-color:accent-1'></div>";
+                  btn.classList.add('d:none');
+              }
+          });
+
+      });
+
+
+      window.addEventListener("load", function(){
+
+        const tbody = this.document.querySelector(".n-table tbody");
+
+        //선택버튼 클릭시 닫기
+        tbody.addEventListener('click', event => {
+
+          if(event.target.tagName!=='BUTTON')
+            return;
+
+          alert(event.target.data.id);
+
+          window.close();
+
+        })
+
+      });
+
+  </script>
 </head>
 <body style="margin: 30px;">
 <section>
@@ -22,34 +61,15 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="list:${locationList}">
-        <td>
-          <div
-                  th:class="${list.state ? 'deco icon:check icon-color:accent-1' : '' }"
-          ></div>
-        </td>
+      <tr th:each="list:${locationList}" th:data-id="${list.id}">
+        <td class="check-selected"></td>
         <td th:text="${list.receiverName}">받는사람</td>
         <td th:text="${list.addr1 + list.addr2}">주소</td>
         <td th:text="${list.receiverPhone}">01099998888</td>
-        <td th:class="${list.state ? 'd:none' : '' }">
-          <button class="n-btn n-btn-type:outline">
-            선택</button>
+        <td>
+          <button  class="change-id n-btn n-btn-type:outline" th:data-id="${list.id}">선택</button>
         </td>
       </tr>
-      <!--<tr>
-        <td></td>
-        <td>진민경</td>
-        <td>서울특별시 어쩌구 112 -5</td>
-        <td>01077733876</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>내이름</td>
-        <td>경기도 어쩌구 112 -5</td>
-        <td>01099998888</td>
-        <td><button class="n-btn n-btn-type:outline">선택</button></td>
-      </tr>-->
       </tbody>
     </table>
   </form>

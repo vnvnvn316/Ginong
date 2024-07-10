@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.co.ginong.web.config.security.WebUserDetails;
 import kr.co.ginong.web.entity.cart.Cart;
+import kr.co.ginong.web.entity.order.Location;
 import kr.co.ginong.web.entity.order.OrderItem;
 import kr.co.ginong.web.service.cart.CartService;
 import kr.co.ginong.web.service.order.LocationService;
@@ -44,10 +45,25 @@ public class CartController {
 
     @GetMapping
     public String list(
-            Model model) {
+            Model model
+            ,@AuthenticationPrincipal WebUserDetails userDetails
+    ) {
+
+        Long memberId = 0L;
+        Location location =null;
+
+        if (userDetails!=null)
+            memberId = userDetails.getId();
+
+        if (memberId !=0L)
+            location = locationService.getByMemberID(memberId);
+
+        if (location!=null)
+            model.addAttribute("location", location);
 
         String pageName = "장바구니";
         model.addAttribute("pageName", pageName);
+
         return "user/cart";
     }
 

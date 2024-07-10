@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface LocationService {
+
+    /*기본배송지 불러오기*/
     Location getByMemberID(Long memberId);
 
     /* 기본 배송지 외 배송지 목록 */

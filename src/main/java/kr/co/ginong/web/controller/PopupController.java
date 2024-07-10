@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class PopupController {
         List<Location> list = service.getListAllByMemberID(memberId);
 
         model.addAttribute("locationList",list);
+        //model.addAttribute("selectedId" , locationId);
 
         return "/user/popup/location-pop";
     }

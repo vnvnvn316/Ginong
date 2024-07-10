@@ -18,10 +18,13 @@
         <h1 class="d:none md:d:flex jc:center ai:center fs:4 fw:3 h:4 bg-color:base-1">장바구니</h1>
         <div class="d:flex m:4 jc:space-between">
             <div class="d:flex gap:1 fs:1 md:fs:3 deco icon:map_pin_fill deco-size:4 icon-size:4 icon-color:main-6">
-                <span>배송지 주소 1</span>
-                <span>배송지 주소 2</span>
+                <span th:text="${location.receiverName}">받는 사람</span>
+                <span>|</span>
+                <span th:text="${location.addr1}">배송지 주소 1</span>
+                <span th:text="${location.addr2}">배송지 주소 2</span>
             </div>
             <button class="n-btn n-btn-type:outline">변경</button>
+            <input type="hidden" class="location-id" th:value="${location.id}">
         </div>
     </section>
 
