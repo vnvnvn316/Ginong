@@ -27,15 +27,23 @@
 
         const tbody = this.document.querySelector(".n-table tbody");
 
+        console.log(tbody);
+
         //선택버튼 클릭시 닫기
         tbody.addEventListener('click', event => {
 
           if(event.target.tagName!=='BUTTON')
             return;
 
-          alert(event.target.data.id);
+          event.preventDefault();
 
-          window.close();
+          const id = event.target.dataset.id;
+
+          if(window.opener && !window.opener.closed){
+            window.opener.receiveValue(id);
+            window.close();
+          }
+
 
         })
 
