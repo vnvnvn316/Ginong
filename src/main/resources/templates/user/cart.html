@@ -11,8 +11,27 @@
     <script type="module" src="/js/user/cart.js" defer></script>
     <script type="module" src="/js/module/locationPop.js" defer></script>
     <script defer>
-        function receiveValue(id){
-            console.log("자식창에서 전달받은 값 = ",id);
+        function receiveValue(data){
+            console.log("자식창에서 전달받은 값 = ",data.id);
+            console.log("자식창에서 전달받은 값 = ",data.name);
+            console.log("자식창에서 전달받은 값 = ",data.addr1);
+            console.log("자식창에서 전달받은 값 = ",data.addr2);
+
+            const locationSection = document.querySelector(".location-info");
+
+            const receiverName = locationSection.querySelector(".receiver-name");
+            const addr1 = locationSection.querySelector(".addr1");
+            const addr2 = locationSection.querySelector(".addr2");
+
+            console.log("============",receiverName);
+
+            receiverName.innerText=data.name;
+            addr1.innerText=data.addr1;
+            addr2.innerText=data.addr2;
+
+            const locationId = document.querySelector(".location-id");
+            locationId.value=data.id;
+
         }
     </script>
 </head>
@@ -23,20 +42,19 @@
         <h1 class="d:none md:d:flex jc:center ai:center fs:4 fw:3 h:4 bg-color:base-1">장바구니</h1>
         <div class="d:flex m:4 jc:space-between">
             <div class="d:flex gap:1 fs:1 md:fs:3 deco icon:map_pin_fill deco-size:4 icon-size:4 icon-color:main-6">
-                <span th:text="${location.receiverName}">받는 사람</span>
+                <span class="receiver-name" th:text="${location.receiverName}">받는 사람</span>
                 <span>|</span>
-                <span th:text="${location.addr1}">배송지 주소 1</span>
-                <span th:text="${location.addr2}">배송지 주소 2</span>
+                <span class="addr1" th:text="${location.addr1}">배송지 주소 1</span>
+                <span class="addr2" th:text="${location.addr2}">배송지 주소 2</span>
             </div>
             <button class="n-btn n-btn-type:outline">변경</button>
-            <input type="hidden" class="location-id" th:value="${location.id}">
         </div>
     </section>
 
-    <section class="d:flex fl-grow:1 fl-dir:column">
+    <section class="prd-list d:flex fl-grow:1 fl-dir:column">
         <h1 class="d:none">상품 리스트</h1>
         <form @submit="submitHandler" id="order" method="post" class="d:flex fl-grow:1 fl-dir:column gap:4">
-            <div><input type="hidden" name="location" v-model="location.id"></div>
+            <div><input type="hidden" class="location-id" name="location" th:value="${location.id}"></div>
             <!-- 전체 삭제 및 삭제 버튼 영역 -->
             <div class="delete d:flex jc:end pos:relative gap:3 ml:4 mr:4">
                 <a href="" @click.prevent="deleteHandler(false)" class="cursor:pointer">선택삭제</a>

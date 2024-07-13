@@ -38,9 +38,12 @@
           event.preventDefault();
 
           const id = event.target.dataset.id;
+          const name = event.target.dataset.name;
+          const addr1 = event.target.dataset.addr1;
+          const addr2 = event.target.dataset.addr2;
 
           if(window.opener && !window.opener.closed){
-            window.opener.receiveValue(id);
+            window.opener.receiveValue({id,name,addr1,addr2});
             window.close();
           }
 
@@ -48,6 +51,8 @@
         })
 
       });
+
+
 
   </script>
 </head>
@@ -75,7 +80,12 @@
         <td th:text="${list.addr1 + list.addr2}">주소</td>
         <td th:text="${list.receiverPhone}">01099998888</td>
         <td>
-          <button  class="change-id n-btn n-btn-type:outline" th:data-id="${list.id}">선택</button>
+          <button  class="change-id n-btn n-btn-type:outline"
+                   th:data-id="${list.id}"
+                   th:data-name="${list.receiverName}"
+                   th:data-addr1="${list.addr1}"
+                   th:data-addr2="${list.addr2}"
+          >선택</button>
         </td>
       </tr>
       </tbody>
