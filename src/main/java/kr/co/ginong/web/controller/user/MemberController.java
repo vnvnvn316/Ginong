@@ -290,8 +290,7 @@ public class MemberController {
             ,Location location
     ){
         //TO-DO
-        //URL 파라미터 조작 피해서 해야 함
-
+        //URL 파라미터 조작 방지
         long memberId = userDetails.getId();
         location.setId(locationId);
         location.setMemberId(memberId);

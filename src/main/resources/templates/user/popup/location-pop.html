@@ -38,12 +38,15 @@
           event.preventDefault();
 
           const id = event.target.dataset.id;
-          const name = event.target.dataset.name;
+          const zipCode = event.target.dataset.zipcode;
           const addr1 = event.target.dataset.addr1;
           const addr2 = event.target.dataset.addr2;
+          const receiverName = event.target.dataset.receivername;
+          const receiverPhone = event.target.dataset.receiverphone;
+          const label = event.target.dataset.label;
 
           if(window.opener && !window.opener.closed){
-            window.opener.receiveValue({id,name,addr1,addr2});
+            window.opener.receiveValue({id,zipCode,addr1,addr2,receiverName,receiverPhone,label});
             window.close();
           }
 
@@ -82,9 +85,12 @@
         <td>
           <button  class="change-id n-btn n-btn-type:outline"
                    th:data-id="${list.id}"
-                   th:data-name="${list.receiverName}"
+                   th:data-zipcode="${list.zipCode}"
                    th:data-addr1="${list.addr1}"
                    th:data-addr2="${list.addr2}"
+                   th:data-receiverName="${list.receiverName}"
+                   th:data-receiverPhone="${list.receiverPhone}"
+                   th:data-label="${list.label}"
           >선택</button>
         </td>
       </tr>

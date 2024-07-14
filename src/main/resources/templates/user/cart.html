@@ -23,9 +23,7 @@
             const addr1 = locationSection.querySelector(".addr1");
             const addr2 = locationSection.querySelector(".addr2");
 
-            console.log("============",receiverName);
-
-            receiverName.innerText=data.name;
+            receiverName.innerText=data.receiverName;
             addr1.innerText=data.addr1;
             addr2.innerText=data.addr2;
 
@@ -51,10 +49,10 @@
         </div>
     </section>
 
-    <section class="prd-list d:flex fl-grow:1 fl-dir:column">
+    <section class="d:flex fl-grow:1 fl-dir:column">
         <h1 class="d:none">상품 리스트</h1>
         <form @submit="submitHandler" id="order" method="post" class="d:flex fl-grow:1 fl-dir:column gap:4">
-            <div><input type="hidden" class="location-id" name="location" th:value="${location.id}"></div>
+            <div class="h-value"><input type="hidden" class="location-id" name="location" th:value="${location.id}"></div>
             <!-- 전체 삭제 및 삭제 버튼 영역 -->
             <div class="delete d:flex jc:end pos:relative gap:3 ml:4 mr:4">
                 <a href="" @click.prevent="deleteHandler(false)" class="cursor:pointer">선택삭제</a>

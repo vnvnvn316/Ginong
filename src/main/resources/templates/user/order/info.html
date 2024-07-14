@@ -8,6 +8,30 @@
     <title>기농이네 - 순수한 땅, 순수한 먹거리</title>
     <link rel="stylesheet" href="/css/user/order/info.css">
     <script src="/js/user/order/info.js" defer></script>
+    <script type="module" src="/js/module/locationPop.js" defer></script>
+    <script defer>
+        function receiveValue(data){
+
+            const locationSection = document.querySelector(".location-info");
+
+            const locationId = document.querySelector(".location-id");
+            const zipCode = locationSection.querySelector(".zip-code");
+            const addr1 = locationSection.querySelector(".addr1");
+            const addr2 = locationSection.querySelector(".addr2");
+            const receiverName = locationSection.querySelector(".receiver-name");
+            const receiverPhone = locationSection.querySelector(".receiver-phone");
+            const label = locationSection.querySelector(".label");
+
+            locationId.value=data.id;
+            zipCode.innerText="["+data.zipCode+"]";
+            addr1.innerText=data.addr1;
+            addr2.innerText=data.addr2;
+            receiverName.innerText=data.receiverName;
+            receiverPhone.innerText=data.receiverPhone.substring(0,3) + '-' +data.receiverPhone.substring(3,7) + '-' + data.receiverPhone.substring(7,11);
+            label.innerText=data.label;
+
+        }
+    </script>
 </head>
 
 <body>
@@ -66,22 +90,27 @@
                 </label>
             </section>
 
-            <section class="d:flex fl-dir:column gap:6 md:gap:12 w:10p">
+            <section class="location-info d:flex fl-dir:column w:10p">
                 <div class="d:flex jc:space-between">
                     <h1 class="fs:3 fw:3 md:fs:5">배송지</h1>
                     <button type="button" class="n-btn n-btn:outline fs:2 fw:3 color:main-6">변경</button>
                 </div>
                 <div>
                     <div class="d:flex fl-dir:column gap:1 md:gap:4">
-                        <div><span class="small-button bg-color:main-5 color:main-1">기본배송지</span></div>
-                        <div class="d:flex gap:1">
-                            <span  th:text="${'['+location.zipCode+']'}">[12345]</span>
-                            <span th:text="${location.addr1}">서울특별시 마포구 백범로 3</span>
-                            <span th:text="${location.addr2}">3층</span>
+                        <div class="d:flex gap:1 ai:center fs:4 fw:2">
+                            <span class="receiver-name" th:text="${location.receiverName}">신석호</span>
+                            <span class="label small-button bg-color:main-5 color:main-1" th:text="${location.label}">배송지명</span>
                         </div>
                         <div class="d:flex gap:1">
-                            <span th:text="${location.receiverName}">신석호</span>
-                            <span th:text="${location.receiverPhone}">010-1234-5678</span>
+                            <span
+                                  th:text="${#strings.substring(location.receiverPhone, 0,3)} + '-'+ ${#strings.substring(location.receiverPhone, 3, 7)} + '-' + ${#strings.substring(location.receiverPhone, 7, 11)}"
+                                  class="receiver-phone">
+                                  010-1234-5678</span>
+                        </div>
+                        <div>
+                            <span class="zip-code" th:text="${'['+location.zipCode+']'}">[12345]</span>
+                            <span class="addr1" th:text="${location.addr1}">서울특별시 마포구 백범로 3</span>
+                            <span class="addr2" th:text="${location.addr2}">3층</span>
                         </div>
                     </div>
                 </div>
@@ -114,10 +143,10 @@
                     비밀번호 없이 자유 출입 가능해요
                 </div>
             </section>
-            <div class="d:flex gap:8 md:gap:10 w:10p">
+            <div class="h-value d:flex gap:8 md:gap:10 w:10p">
                 <button class="n-btn n-btn:outline n-btn-size:2 fl-grow:1 fw:3">취소</button>
                 <button class="n-btn n-btn-size:2 fl-grow:1 fw:3">주문하기</button>
-                <input type = "hidden" th:value="${location.id}" name="locationId">
+                <input type = "hidden" class="location-id" th:value="${location.id}" name="locationId">
                 <input type = "hidden" th:value="${location.zipCode}" name="zipCode">
                 <input type = "hidden" th:value="${location.addr1}" name="addr1">
                 <input type = "hidden" th:value="${location.addr2}" name="addr2">
