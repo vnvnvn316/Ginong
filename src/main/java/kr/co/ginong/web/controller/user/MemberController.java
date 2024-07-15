@@ -295,24 +295,16 @@ public class MemberController {
         location.setId(locationId);
         location.setMemberId(memberId);
 
-        //수정 전 기본배송지 상태값 가져오기
-        boolean beforeState = locationService.getStateByID(locationId);
-
-        //수정전과 다르다면 기본배송지 update
-        if(beforeState!=location.isState()){
-            //기본배송지 변경
-            locationService.updateStateById(locationId,memberId);
-        }
-
         try {
-            //배송지 수정정보 업데이트
+            //기본배송지 등록 체크시 기본배송지로 변경
+            if(location.isState())
+                locationService.updateStateById(locationId,memberId);
+            //배송지 수정정보 업데이트 - state는 위에서 따로 처리
             locationService.updateLocation(location);
         }
         catch (Exception e){
             return "error/500";
         }
-
-
 
         return "redirect:/mypage/info-detail?t=location";
 

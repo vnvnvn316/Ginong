@@ -74,7 +74,7 @@ public class LocationServiceImp implements LocationService{
 
     @Override
     public void updateLocation(Location location) {
-       repository.updateLocation(location);
+        repository.updateLocation(location);
     }
 
     @Override

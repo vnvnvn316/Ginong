@@ -89,7 +89,7 @@
 			<if test="addr2 != null">ADDR2=#{addr2},</if>
 			<if test="receiverName != null">RECEIVER_NAME=#{receiverName},</if>
 			<if test="receiverPhone != null">RECEIVER_PHONE=#{receiverPhone},</if>
-			<if test="state != null">STATE=#{state},</if>
+			<!--<if test="state != null">STATE=#{state},</if>-->
 			<if test="label != null">LABEL=#{label},</if>
 			<if test="note != null">NOTE=#{note},</if>
 			<if test="gatePwd != null">GATE_PWD=#{gatePwd},</if>
