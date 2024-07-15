@@ -43,7 +43,7 @@
                     <div>
                         <a :href=" 'product/detail?id=' + item.productId">
                             <img class="w:3 md:w:5"
-                                 src="/img/carrot.png" th:src="@{/img/baechoo.png}"/>
+                                 :src="item.thumbImg" >
                         </a>
                     </div>
                     <div class="d:flex fl-dir:column jc:center gap:4 w:100p md:gap:11">

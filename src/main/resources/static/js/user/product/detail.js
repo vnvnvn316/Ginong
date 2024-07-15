@@ -145,8 +145,9 @@ window.addEventListener("load", function(){
     let productId = document.querySelector(".product-id").value;
     let title = document.querySelector(".product-title").value;
     let price = document.querySelector(".product-price").value;
+    let thumbImg = document.querySelector(".product-thumbImg").value;
 
-    let detailArray = {productId,title, price};
+    let detailArray = {productId,title, price, thumbImg};
 
     save(detailArray);
 

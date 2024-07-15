@@ -30,8 +30,6 @@ createApp({
         const localStorage = window.localStorage;
         const localData = localStorage.getItem("recentList");
 
-        const localDataJson = JSON.parse(localData);
-
         this.list = JSON.parse(localData);
 
     }
