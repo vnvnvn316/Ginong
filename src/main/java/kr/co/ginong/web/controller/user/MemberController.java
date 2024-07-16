@@ -268,13 +268,22 @@ public class MemberController {
     public String updateLocation(
             Model model
             ,@RequestParam(name="locationId") Long locationId
+            ,@AuthenticationPrincipal WebUserDetails userDetails
     ){
-
-        //TO-DO
-        //locationId를 param값으로 보내는 대신 아이디와 대조하여 URL 파라미터 조작 방지 해야함
-        //locationId값과 user id를 함께 보내서 검증해야 함
-
+        //locationId를 통해 Location 정보 조회
         Location location = locationService.getByID(locationId);
+
+        //url 파라미터 조작방지처리
+        {
+            //location이 null인지 체크
+            if (location == null)
+                return "error/404"; // 404 에러 페이지로 리다이렉트
+
+            //현재 로그인한 사용자의 memberId와 location의 memberId를 비교
+            if (location.getMemberId()!=userDetails.getId())
+                return "error/403";
+        }
+
         model.addAttribute("locationInf" , location);
 
         String pageName="배송지 수정";
@@ -290,8 +299,21 @@ public class MemberController {
             ,Location location
     ){
         //TO-DO
-        //URL 파라미터 조작 방지
+        //URL 파라미터 조작 방지 처리
         long memberId = userDetails.getId();
+
+        {
+            Location exisitingLocation = locationService.getByID(locationId);
+
+            //존재하지않는 locationId인 경우
+            if(exisitingLocation==null)
+                return "error/404";
+
+            //현재 로그인한 사용자의 memberId와 location의 memberId 비교
+            if(exisitingLocation.getMemberId()!=memberId)
+                return "error/403";
+        }
+
         location.setId(locationId);
         location.setMemberId(memberId);
 
